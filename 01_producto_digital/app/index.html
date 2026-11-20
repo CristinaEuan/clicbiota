@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174b2c">
+  <meta name="description" content="Explora registros de flora y fauna por país en un globo interactivo.">
+  <title>Clicbiota · Flora y fauna del mundo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/d3-geo@3"></script>
+  <script src="https://unpkg.com/globe.gl@2/dist/globe.gl.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio"><img class="brand-logo" src="assets/atlas.png" alt=""><span class="brand-copy"><strong>Flora y fauna del mundo</strong></span></a>
+    <nav aria-label="Navegación principal"><a href="#explorar">El mapa</a><a href="#fuentes">Los datos</a></nav>
+  </header>
+
+  <main id="inicio">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">¿Qué vive <em>en cada lugar?</em></h1>
+        <p class="hero-text">Gira el globo, elige un país y revisa algunas plantas y animales.</p>
+      </div>
+    </section>
+
+    <section class="explorer section-wrap" id="explorar" aria-labelledby="explore-title">
+      <div class="section-heading">
+        <div><h2 id="explore-title">Gira el mundo</h2></div>
+      </div>
+      <div class="explorer-grid">
+        <section class="globe-card" aria-label="Globo terráqueo interactivo">
+          <div class="globe-toolbar"><span class="live-dot"></span><span id="globeStatus" role="status">Cargando el globo…</span><button id="resetView" class="icon-button" type="button" aria-label="Restablecer vista del globo" title="Restablecer vista">⌖</button></div>
+          <div id="globeViz" aria-label="Globo 3D. Arrastra para girarlo y selecciona un país." role="application"></div>
+          <div class="globe-hint"><span aria-hidden="true">↔</span> Arrastra para girar <span class="hint-dot">·</span> Pulsa un país</div>
+        </section>
+        <aside class="search-panel" aria-label="Elegir un lugar">
+          <h3>O elige en la lista</h3>
+          <label for="countryPicker">País o territorio</label>
+          <div class="select-wrap"><select id="countryPicker" disabled><option>Cargando países…</option></select><span aria-hidden="true">⌄</span></div>
+        </aside>
+      </div>
+      <section class="results" id="results" aria-labelledby="resultsTitle" aria-live="polite">
+        <div class="results-content" id="resultsContent" hidden>
+          <div class="results-heading"><div><h2 id="resultsTitle">País</h2><p id="scopeNote" class="scope-note"></p></div></div>
+          <div class="taxa-grid">
+            <section class="taxa-column fauna-column" aria-labelledby="animalsTitle"><div class="taxa-heading"><span class="taxa-index">01</span><h3 id="animalsTitle">Fauna</h3></div><div id="animalList" class="species-list"></div></section>
+            <section class="taxa-column flora-column" aria-labelledby="plantsTitle"><div class="taxa-heading"><span class="taxa-index">02</span><h3 id="plantsTitle">Flora</h3></div><div id="plantList" class="species-list"></div></section>
+          </div>
+        </div>
+        <div class="results-error" id="resultsError" role="alert" hidden></div>
+      </section>
+    </section>
+
+    <section class="how section-wrap" aria-labelledby="how-title">
+      <div class="how-intro"><h2 id="how-title">Cada lugar tiene <em>su propia vida.</em></h2><p>Los bosques, desiertos, montañas y mares crean hábitats distintos. Conocer las especies que los habitan nos ayuda a valorar y cuidar la biodiversidad.</p></div>
+    </section>
+  </main>
+
+  <footer class="footer" id="fuentes"><a class="brand" href="#inicio"><img class="brand-logo" src="assets/atlas.png" alt=""><span class="brand-copy"><strong>Flora y fauna del mundo</strong></span></a><a href="https://www.gbif.org/" target="_blank" rel="noreferrer">Fuentes de consulta</a></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
